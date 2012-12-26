@@ -436,6 +436,9 @@ public class VideoModule implements CameraModule,
         // Power shutter
         mActivity.initPowerShutter(mPreferences);
 
+        // Initialize External storage settings
+        mActivity.initStoragePrefs(mPreferences);
+
         /*
          * To reduce startup time, we start the preview in another thread.
          * We make sure the preview is started at the end of onCreate.
@@ -899,6 +902,9 @@ public class VideoModule implements CameraModule,
         PopupManager.getInstance(mActivity).notifyShowPopup(null);
 
         mVideoNamer = new VideoNamer();
+
+        // Initialize External storage settings
+        mActivity.initStoragePrefs(mPreferences);
     }
 
     private void setDisplayOrientation() {
@@ -1436,7 +1442,12 @@ public class VideoModule implements CameraModule,
         // Used when emailing.
         String filename = title + convertOutputFormatToFileExt(outputFileFormat);
         String mime = convertOutputFormatToMimeType(outputFileFormat);
-        String path = Storage.DIRECTORY + '/' + filename;
+        String path;
+        if(!ActivityBase.mStorageExternal) {
+            path = Storage.DIRECTORY + '/' + filename;
+        } else {
+            path = Storage.EXTDIRECTORY + '/' + filename;
+        }
         String tmpPath = path + ".tmp";
         mCurrentVideoValues = new ContentValues(7);
         mCurrentVideoValues.put(Video.Media.TITLE, title);
@@ -2298,6 +2309,7 @@ public class VideoModule implements CameraModule,
             }
             updateOnScreenIndicators();
             mActivity.initPowerShutter(mPreferences);
+            mActivity.initStoragePrefs(mPreferences);
         }
     }
 
@@ -2536,6 +2548,9 @@ public class VideoModule implements CameraModule,
 
         // Setup Power shutter
         mActivity.initPowerShutter(mPreferences);
+
+        // Initialize External storage settings
+        mActivity.initStoragePrefs(mPreferences);
 
         // When going to and back from gallery, we need to turn off/on the flash.
         if (!mActivity.mShowCameraAppView) {

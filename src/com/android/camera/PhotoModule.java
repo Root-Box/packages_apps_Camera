@@ -574,6 +574,8 @@ public class PhotoModule
         initializeZoom();
         updateOnScreenIndicators();
         showTapToFocusToastIfNeeded();
+        // Load External storage settings
+        mActivity.initStoragePrefs(mPreferences);
     }
 
     private void initializePhotoControl() {
@@ -631,6 +633,7 @@ public class PhotoModule
         addIdleHandler();
 
         mActivity.updateStorageSpaceAndHint();
+
     }
 
     private void showTapToFocusToastIfNeeded() {
@@ -1645,6 +1648,9 @@ public class PhotoModule
     public void updateCameraAppView() {
         // Setup Power shutter
         mActivity.initPowerShutter(mPreferences);
+
+        // Load External storage settings
+        mActivity.initStoragePrefs(mPreferences);
     }
 
     @Override
@@ -1727,6 +1733,9 @@ public class PhotoModule
 
         // Load the power shutter
         mActivity.initPowerShutter(mPreferences);
+
+        // Load External storage Settings
+        mActivity.initStoragePrefs(mPreferences);
 
         // Clear UI.
         collapseCameraControls();
@@ -1869,6 +1878,9 @@ public class PhotoModule
         initializeFocusManager();
         initializeMiscControls();
         loadCameraPreferences();
+
+        // Load External storage settings
+        mActivity.initStoragePrefs(mPreferences);
 
         // from initializeFirstTime()
         mShutterButton = mActivity.getShutterButton();
@@ -2425,6 +2437,7 @@ public class PhotoModule
         setPreviewFrameLayoutAspectRatio();
         updateOnScreenIndicators();
         mActivity.initPowerShutter(mPreferences);
+        mActivity.initStoragePrefs(mPreferences);
     }
 
     @Override

@@ -28,6 +28,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceGroup;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -45,6 +47,8 @@ import com.android.gallery3d.app.PhotoPage;
 import com.android.gallery3d.common.ApiHelper;
 import com.android.gallery3d.ui.ScreenNail;
 import com.android.gallery3d.util.MediaSetUtils;
+
+import java.io.File;
 
 /**
  * Superclass of camera activity.
@@ -64,6 +68,9 @@ public abstract class ActivityBase extends AbstractGalleryActivity
     // panorama. If the extra is not set, it is in the normal camera mode.
     public static final String SECURE_CAMERA_EXTRA = "secure_camera";
 
+    // DCIM location on External SD
+    public static final String extDCIMPath = "/storage/sdcard1/DCIM";
+
     private int mResultCodeForTesting;
     private Intent mResultDataForTesting;
     private OnScreenHint mStorageHint;
@@ -80,6 +87,10 @@ public abstract class ActivityBase extends AbstractGalleryActivity
 
     // Keep track of powershutter state
     public static boolean mPowerShutter = false;
+
+    // Keep track of External Storage
+    public static boolean mStorageExternal = false;
+    public static boolean mNoExt = false;
 
     // multiple cameras support
     protected int mNumberOfCameras;
@@ -222,6 +233,21 @@ public abstract class ActivityBase extends AbstractGalleryActivity
             getWindow().addFlags(WindowManager.LayoutParams.PREVENT_POWER_KEY);
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.PREVENT_POWER_KEY);
+        }
+    }
+
+    // Initialize storage preferences
+    protected void initStoragePrefs(ComboPreferences prefs) {
+        prefs.setLocalId(getApplicationContext(), 0);
+        String val = prefs.getString(CameraSettings.KEY_STORAGE,
+                getResources().getString(R.string.pref_camera_storage_title_default));
+        mStorageExternal = val.equals(CameraSettings.VALUE_ON);
+        File extDCIM = new File(extDCIMPath);
+        // Condition for External SD absence
+        if(extDCIM.exists()) mNoExt = false;
+        else {
+            mNoExt=true;
+            mStorageExternal = false;
         }
     }
 

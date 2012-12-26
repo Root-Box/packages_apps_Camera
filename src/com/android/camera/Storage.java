@@ -42,6 +42,9 @@ public class Storage {
 
     public static final String DIRECTORY = DCIM + "/Camera";
 
+    // External SD DCIM (/storage/sdcard1 is android default external sd location)
+    public static final String EXTDIRECTORY = "/storage/sdcard1/DCIM/Camera";
+
     // Match the code in MediaProvider.computeBucketValues().
     public static final String BUCKET_ID =
             String.valueOf(DIRECTORY.toLowerCase().hashCode());
@@ -217,7 +220,12 @@ public class Storage {
     }
 
     public static String generateFilepath(String title) {
-        return DIRECTORY + '/' + title + ".jpg";
+        // External DCIM check
+        if(!ActivityBase.mStorageExternal) {
+            return DIRECTORY + '/' + title + ".jpg";
+        } else {
+            return EXTDIRECTORY + '/' + title + ".jpg";
+        }
     }
 
     public static long getAvailableSpace() {
