@@ -40,14 +40,8 @@ public class Storage {
     public static final String DCIM =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
 
-    public static final String DIRECTORY = DCIM + "/Camera";
-
     // External SD DCIM (/storage/sdcard1 is android default external sd location)
-    public static final String EXTDIRECTORY = "/storage/sdcard1/DCIM/Camera";
-
-    // Match the code in MediaProvider.computeBucketValues().
-    public static final String BUCKET_ID =
-            String.valueOf(DIRECTORY.toLowerCase().hashCode());
+    public static final String EXTDCIM = "/storage/sdcard1/DCIM";
 
     public static final long UNAVAILABLE = -1L;
     public static final long PREPARING = -2L;
@@ -219,13 +213,27 @@ public class Storage {
         }
     }
 
-    public static String generateFilepath(String title) {
+    public static String generateDCIM() {
         // External DCIM check
         if(!ActivityBase.mStorageExternal) {
-            return DIRECTORY + '/' + title + ".jpg";
+            return DCIM.toString();
         } else {
-            return EXTDIRECTORY + '/' + title + ".jpg";
+            return EXTDCIM.toString();
         }
+    }
+
+    public static String generateDir() {
+        // External DCIM check
+        return generateDCIM() + "/Camera";
+    }
+
+    public static String generateFilepath(String title) {
+        // External DCIM check
+        return generateDir() + '/' + title + ".jpg";
+    }
+
+    public static int generateBucketIdInt() {
+        return generateDir().toLowerCase().hashCode();
     }
 
     public static long getAvailableSpace() {
@@ -238,14 +246,14 @@ public class Storage {
             return UNAVAILABLE;
         }
 
-        File dir = new File(DIRECTORY);
+        File dir = new File(generateDir());
         dir.mkdirs();
         if (!dir.isDirectory() || !dir.canWrite()) {
             return UNAVAILABLE;
         }
 
         try {
-            StatFs stat = new StatFs(DIRECTORY);
+            StatFs stat = new StatFs(generateDir());
             return stat.getAvailableBlocks() * (long) stat.getBlockSize();
         } catch (Exception e) {
             Log.i(TAG, "Fail to access external storage", e);
@@ -258,7 +266,7 @@ public class Storage {
      * imported. This is a temporary fix for bug#1655552.
      */
     public static void ensureOSXCompatible() {
-        File nnnAAAAA = new File(DCIM, "100ANDRO");
+        File nnnAAAAA = new File(generateDCIM(), "100ANDRO");
         if (!(nnnAAAAA.exists() || nnnAAAAA.mkdirs())) {
             Log.e(TAG, "Failed to create " + nnnAAAAA.getPath());
         }

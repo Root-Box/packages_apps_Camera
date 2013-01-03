@@ -68,9 +68,6 @@ public abstract class ActivityBase extends AbstractGalleryActivity
     // panorama. If the extra is not set, it is in the normal camera mode.
     public static final String SECURE_CAMERA_EXTRA = "secure_camera";
 
-    // DCIM location on External SD
-    public static final String extDCIMPath = "/storage/sdcard1/DCIM";
-
     private int mResultCodeForTesting;
     private Intent mResultDataForTesting;
     private OnScreenHint mStorageHint;
@@ -89,8 +86,9 @@ public abstract class ActivityBase extends AbstractGalleryActivity
     public static boolean mPowerShutter = false;
 
     // Keep track of External Storage
-    public static boolean mStorageExternal = false;
+    public static boolean mStorageExternal;
     public static boolean mNoExt = false;
+    public static boolean mStorageToggled = false;
 
     // multiple cameras support
     protected int mNumberOfCameras;
@@ -241,8 +239,9 @@ public abstract class ActivityBase extends AbstractGalleryActivity
         prefs.setLocalId(getApplicationContext(), 0);
         String val = prefs.getString(CameraSettings.KEY_STORAGE,
                 getResources().getString(R.string.pref_camera_storage_title_default));
+        mStorageToggled = ( mStorageExternal == val.equals(CameraSettings.VALUE_ON)) ? false : true;
         mStorageExternal = val.equals(CameraSettings.VALUE_ON);
-        File extDCIM = new File(extDCIMPath);
+        File extDCIM = new File(Storage.EXTDCIM);
         // Condition for External SD absence
         if(extDCIM.exists()) mNoExt = false;
         else {
@@ -406,7 +405,7 @@ public abstract class ActivityBase extends AbstractGalleryActivity
             if (mSecureCamera) {
                 path = "/secure/all/" + sSecureAlbumId;
             } else {
-                path = "/local/all/" + MediaSetUtils.CAMERA_BUCKET_ID;
+                path = "/local/all/" + Storage.generateBucketIdInt();
             }
         } else {
             path = "/local/all/0"; // Use 0 so gallery does not show anything.
@@ -440,7 +439,7 @@ public abstract class ActivityBase extends AbstractGalleryActivity
             if (mSecureCamera) {
                 path = "/secure/all/" + sSecureAlbumId;
             } else {
-                path = "/local/all/" + MediaSetUtils.CAMERA_BUCKET_ID;
+                path = "/local/all/" + Storage.generateBucketIdInt();
             }
         } else {
             path = "/local/all/0"; // Use 0 so gallery does not show anything.

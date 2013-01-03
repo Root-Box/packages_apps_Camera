@@ -1442,12 +1442,7 @@ public class VideoModule implements CameraModule,
         // Used when emailing.
         String filename = title + convertOutputFormatToFileExt(outputFileFormat);
         String mime = convertOutputFormatToMimeType(outputFileFormat);
-        String path;
-        if(!ActivityBase.mStorageExternal) {
-            path = Storage.DIRECTORY + '/' + filename;
-        } else {
-            path = Storage.EXTDIRECTORY + '/' + filename;
-        }
+        String path = Storage.generateDir() + '/' + filename;
         String tmpPath = path + ".tmp";
         mCurrentVideoValues = new ContentValues(7);
         mCurrentVideoValues.put(Video.Media.TITLE, title);
@@ -2297,6 +2292,10 @@ public class VideoModule implements CameraModule,
 
             // Check if the current effects selection has changed
             if (updateEffectSelection()) return;
+
+            if (ActivityBase.mStorageToggled) {
+                mActivity.recreate();
+            }
 
             readVideoPreferences();
             showTimeLapseUI(mCaptureTimeLapse);
