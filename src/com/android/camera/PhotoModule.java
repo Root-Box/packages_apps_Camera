@@ -470,6 +470,9 @@ public class PhotoModule
             mActivity.createCameraScreenNail(!mIsImageCaptureIntent);
         }
 
+        // Setup Power shutter
+        mActivity.initPowerShutter(mPreferences);
+
         mPreferences.setLocalId(mActivity, mCameraId);
         CameraSettings.upgradeLocalPreferences(mPreferences.getLocal());
         // we need to reset exposure for the preview
