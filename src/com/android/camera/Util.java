@@ -149,6 +149,9 @@ public class Util {
     // For setting video size before recording starts
     private static boolean sEarlyVideoSize;
 
+    // For setting video desired profile size
+    private static boolean sProfileVideoSize;
+
     // Samsung ZSL mode
     private static boolean sEnableZSL;
 
@@ -186,6 +189,7 @@ public class Util {
         // These come from the config, but are needed before parameters are set.
         sSamsungCamMode = context.getResources().getBoolean(R.bool.needsSamsungCamMode);
         sHTCCamMode = context.getResources().getBoolean(R.bool.needsHTCCamMode);
+        sProfileVideoSize = context.getResources().getBoolean(R.bool.useProfileVideoSize);
         sEarlyVideoSize = context.getResources().getBoolean(R.bool.needsEarlyVideoSize);
         sEnableZSL = context.getResources().getBoolean(R.bool.enableZSL);
         sNoFaceDetectOnFrontCamera = context.getResources().getBoolean(
@@ -227,6 +231,10 @@ public class Util {
 
     public static boolean useSamsungCamMode() {
         return sSamsungCamMode;
+    }
+
+    public static boolean useProfileVideoSize() {
+        return sProfileVideoSize;
     }
 
     public static boolean needsEarlyVideoSize() {
