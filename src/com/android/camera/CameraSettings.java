@@ -68,6 +68,7 @@ public class CameraSettings {
     public static final String KEY_POWER_SHUTTER = "pref_power_shutter";
     public static final String KEY_SMART_CAPTURE = "pref_smart_capture";
     public static final String KEY_STORAGE = "pref_camera_storage_key";
+    public static final String KEY_ISO_MODE = "pref_camera_iso_key";
     public static final String KEY_JPEG = "pref_camera_jpeg_key";
     public static final String KEY_VIDEOCAMERA_JPEG = "pref_camera_video_jpeg_key";
     public static final String KEY_COLOR_EFFECT = "pref_camera_coloreffect_key";
@@ -184,6 +185,7 @@ public class CameraSettings {
                 group.findPreference(KEY_VIDEOCAMERA_FLASH_MODE);
         ListPreference videoEffect = group.findPreference(KEY_VIDEO_EFFECT);
         ListPreference cameraHdr = group.findPreference(KEY_CAMERA_HDR);
+        ListPreference isoMode = group.findPreference(KEY_ISO_MODE);
         ListPreference jpegQuality = group.findPreference(KEY_JPEG);
         ListPreference colorEffect = group.findPreference(KEY_COLOR_EFFECT);
 
@@ -248,6 +250,10 @@ public class CameraSettings {
         if (cameraHdr != null && (!ApiHelper.HAS_CAMERA_HDR
                     || !Util.isCameraHdrSupported(mParameters))) {
             removePreference(group, cameraHdr.getKey());
+        }
+        if (isoMode != null) {
+            filterUnsupportedOptions(group,
+                    isoMode, mParameters.getSupportedIsoValues());
         }
         if (colorEffect != null) {
             filterUnsupportedOptions(group,

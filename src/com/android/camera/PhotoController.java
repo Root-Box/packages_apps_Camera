@@ -105,6 +105,7 @@ public class PhotoController extends PieController
                 CameraSettings.KEY_PICTURE_SIZE,
                 CameraSettings.KEY_FOCUS_MODE,
                 CameraSettings.KEY_FOCUS_TIME,
+                CameraSettings.KEY_ISO_MODE,
                 CameraSettings.KEY_JPEG,
                 CameraSettings.KEY_COLOR_EFFECT,
                 CameraSettings.KEY_PERSISTENT_NOHANDS,
