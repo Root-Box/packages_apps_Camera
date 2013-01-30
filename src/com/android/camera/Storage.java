@@ -42,6 +42,7 @@ public class Storage {
 
     // External SD DCIM (/storage/sdcard1 is android default external sd location)
     public static final String EXTDCIM = "/storage/sdcard1/DCIM";
+    public static final String EXTMMC = "/storage/sdcard1";
 
     public static final long UNAVAILABLE = -1L;
     public static final long PREPARING = -2L;
