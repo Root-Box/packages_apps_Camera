@@ -2311,10 +2311,6 @@ public class VideoModule implements CameraModule,
             // Check if the current effects selection has changed
             if (updateEffectSelection()) return;
 
-            if (ActivityBase.mStorageToggled) {
-                mActivity.recreate();
-            }
-
             readVideoPreferences();
             showTimeLapseUI(mCaptureTimeLapse);
             // We need to restart the preview if preview size is changed.
@@ -2335,6 +2331,10 @@ public class VideoModule implements CameraModule,
             updateOnScreenIndicators();
             mActivity.initPowerShutter(mPreferences);
             mActivity.initStoragePrefs(mPreferences);
+
+            if (ActivityBase.mStorageToggled) {
+                mActivity.recreate();
+            }
         }
     }
 
