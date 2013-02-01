@@ -24,8 +24,6 @@
     <string name="wait" msgid="8600187532323801552">"Aguarde..."</string>
     <string name="no_storage" product="nosdcard" msgid="7335975356349008814">"Monte a memória de armazenamento USB antes de utilizar a câmara."</string>
     <string name="no_storage" product="default" msgid="5137703033746873624">"Insira um cartão SD antes de utilizar a câmara."</string>
-    <string name="not_enough_space" product="nosdcard" msgid="6452370395538050134">"O armazenamento USB está cheio."</string>
-    <string name="not_enough_space" product="default" msgid="6655334407957844653">"O cartão SD está cheio."</string>
     <string name="preparing_sd" product="nosdcard" msgid="6104019983528341353">"Preparar armazenamento USB..."</string>
     <string name="preparing_sd" product="default" msgid="2914969119574812666">"A preparar o cartão SD..."</string>
     <string name="access_sd_fail" product="nosdcard" msgid="8147993984037859354">"Não foi possível aceder à memória de armazenamento USB."</string>
@@ -39,8 +37,6 @@
     <string name="pref_camera_recordlocation_title" msgid="371208839215448917">"Armazenar localização"</string>
     <string name="setting_off" msgid="4480039384202951946">"Desativado"</string>
     <string name="setting_on" msgid="8602246224465348901">"Ativado"</string>
-    <string name="pref_camera_recordlocation_entry_off" msgid="8888142742988946038">"Desactivado"</string>
-    <string name="pref_camera_recordlocation_entry_on" msgid="7954533529969575594">"Activado"</string>
     <string name="pref_video_quality_title" msgid="8245379279801096922">"Qualidade de vídeo"</string>
     <string name="pref_video_quality_entry_high" msgid="8664038216234805914">"Alta"</string>
     <string name="pref_video_quality_entry_low" msgid="7258507152393173784">"Baixa"</string>
@@ -106,7 +102,6 @@
     <string name="effect_backdropper_sunset" msgid="45198943771777870">"Pôr do Sol"</string>
     <string name="effect_backdropper_gallery" msgid="959158844620991906">"O seu vídeo"</string>
     <string name="bg_replacement_message" msgid="9184270738916564608">"Vire o seu aparelho para baixo."\n"Saia da vista por alguns momentos."</string>
-    <string name="not_selectable_in_effect" msgid="4568604144269499202">"Não permitido quando o efeito está activado."</string>
     <string name="video_snapshot_hint" msgid="18833576851372483">"Toque para tirar uma fotografia durante a gravação."</string>
     <string name="disable_video_snapshot_hint" msgid="4957723267826476079">"Instantâneo vídeo desact. quando efeitos especiais estão activos."</string>
     <string name="clear_effects" msgid="5485339175014139481">"Limpar efeitos"</string>
