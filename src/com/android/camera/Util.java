@@ -147,6 +147,7 @@ public class Util {
 
     // Workaround for QC cameras with broken face detection on front camera
     private static boolean sNoFaceDetectOnFrontCamera;
+    private static boolean sNoFaceDetectOnBackCamera;
 
     private Util() {
     }
@@ -167,6 +168,8 @@ public class Util {
         sEnableZSL = context.getResources().getBoolean(R.bool.enableZSL);
         sNoFaceDetectOnFrontCamera = context.getResources().getBoolean(
                 R.bool.noFaceDetectOnFrontCamera);
+        sNoFaceDetectOnBackCamera = context.getResources().getBoolean(
+                R.bool.noFaceDetectOnBackCamera);
     }
 
     public static int dpToPixel(int dp) {
@@ -191,6 +194,9 @@ public class Util {
 
     public static boolean noFaceDetectOnFrontCamera() {
         return sNoFaceDetectOnFrontCamera;
+    }
+    public static boolean noFaceDetectOnBackCamera() {
+        return sNoFaceDetectOnBackCamera;
     }
 
     // Rotates the bitmap by the specified degree.
