@@ -149,6 +149,10 @@ public class Util {
     private static boolean sNoFaceDetectOnFrontCamera;
     private static boolean sNoFaceDetectOnBackCamera;
 
+    // Software HDR based on manual shots with multiple exposure
+    private static boolean sEnableSoftwareHDR;
+    private static boolean sDoSoftwareHDRShot;
+
     private Util() {
     }
 
@@ -170,6 +174,10 @@ public class Util {
                 R.bool.noFaceDetectOnFrontCamera);
         sNoFaceDetectOnBackCamera = context.getResources().getBoolean(
                 R.bool.noFaceDetectOnBackCamera);
+
+        // Todo: uncomment once debugged
+        sEnableSoftwareHDR = !context.getResources().getBoolean(R.bool.disableSoftwareHDR);
+        sDoSoftwareHDRShot = false;
     }
 
     public static int dpToPixel(int dp) {
@@ -190,6 +198,18 @@ public class Util {
 
     public static boolean enableZSL() {
         return sEnableZSL;
+    }
+
+    public static boolean useSoftwareHDR() {
+        return sEnableSoftwareHDR;
+    }
+
+    public static void setDoSoftwareHDRShot(boolean enable) {
+        sDoSoftwareHDRShot = enable;
+    }
+
+    public static boolean getDoSoftwareHDRShot() {
+        return sDoSoftwareHDRShot;
     }
 
     public static boolean noFaceDetectOnFrontCamera() {
