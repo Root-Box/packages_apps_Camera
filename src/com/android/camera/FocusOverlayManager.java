@@ -94,7 +94,7 @@ public class FocusOverlayManager {
     private Handler mHandler;
     Listener mListener;
 
-    private int mFocusTime; // time after touch-to-focus
+    private int mFocusTime = 3000; // time after touch-to-focus
 
     public interface Listener {
         public void autoFocus();
