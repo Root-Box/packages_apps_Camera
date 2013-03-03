@@ -179,7 +179,7 @@
     <string name="remember_location_yes" msgid="862884269285964180">"Ja"</string>
 
 <!-- More Settings screen, power button title -->
-     <string name="pref_camera_power_shutter_title">Power-Auslöser</string>
+     <string name="pref_camera_power_shutter_title">Ein/Aus-Auslöser</string>
      <string name="pref_camera_power_shutter_default">Aus</string>
 
      <!-- Settings screen, storage title -->
@@ -199,14 +199,14 @@
     <string name="pref_camera_coloreffect_title">Farbeffekt</string>
 
     <!-- Settings screen, Color effect dialog radio button choices -->
-    <string name="pref_camera_coloreffect_entry_none">Kein</string>
-    <string name="pref_camera_coloreffect_entry_mono">Mono</string>
+    <string name="pref_camera_coloreffect_entry_none">Keiner</string>
+    <string name="pref_camera_coloreffect_entry_mono">Monochrom</string>
     <string name="pref_camera_coloreffect_entry_sepia">Sepia</string>
     <string name="pref_camera_coloreffect_entry_negative">Negativ</string>
-    <string name="pref_camera_coloreffect_entry_solarize">Solarisieren</string>
-    <string name="pref_camera_coloreffect_entry_posterize">Tontrennung</string>
-    <string name="pref_camera_coloreffect_entry_aqua">Aqua</string>
-    <string name="pref_camera_coloreffect_entry_emboss">Emboss</string>
+    <string name="pref_camera_coloreffect_entry_solarize">Solarisiert</string>
+    <string name="pref_camera_coloreffect_entry_posterize">Posterisation</string>
+    <string name="pref_camera_coloreffect_entry_aqua">Aquarell</string>
+    <string name="pref_camera_coloreffect_entry_emboss">Prägen</string>
     <string name="pref_camera_coloreffect_entry_sketch">Skizze</string>
     <string name="pref_camera_coloreffect_entry_neon">Neon</string>
     <string name="pref_camera_coloreffect_entry_pastel">Pastel</string>
@@ -214,9 +214,16 @@
     <string name="pref_camera_coloreffect_entry_redtint">Rotton</string>
     <string name="pref_camera_coloreffect_entry_bluetint">Blauton</string>
     <string name="pref_camera_coloreffect_entry_greentint">Grünton</string>
+=======
+    <string name="pref_camera_coloreffect_entry_pastel">Pastell</string>
+    <string name="pref_camera_coloreffect_entry_mosaic">Mosaik</string>
+    <string name="pref_camera_coloreffect_entry_redtint">Rötlich</string>
+    <string name="pref_camera_coloreffect_entry_bluetint">Bläulich</string>
+    <string name="pref_camera_coloreffect_entry_greentint">Grünlich</string>
+>>>>>>> 3fdc729... Complete the update of German language for Camera
 
     <!-- Settings screen, Burst mode title -->
-    <string name="pref_camera_burst_title">Burst-Modus</string>
+    <string name="pref_camera_burst_title">Serienaufnahme</string>
 
     <!-- Settings screen, Burst mode entries -->
     <string name="pref_camera_burst_entry_off">Aus</string>
@@ -224,16 +231,22 @@
     <string name="pref_camera_burst_entry_10">10 Fotos</string>
     <string name="pref_camera_burst_entry_15">15 Fotos</string>
     <string name="pref_camera_burst_entry_20">20 Fotos</string>
+=======
+    <string name="pref_camera_burst_entry_5">5 Aufnahmen</string>
+    <string name="pref_camera_burst_entry_10">10 Aufnahmen</string>
+    <string name="pref_camera_burst_entry_15">15 Aufnahmen</string>
+    <string name="pref_camera_burst_entry_20">20 Aufnahmen</string>
+>>>>>>> 3fdc729... Complete the update of German language for Camera
 
     <!-- Touch-to-focus duration settings -->
-    <string name="pref_camera_focustime_title">Touch Fokus Dauer</string>
-    <string name="pref_camera_focustime_summary">Wähle die Dauer für den Touch Fokus</string>
+    <string name="pref_camera_focustime_title">Touch-Fokus-Dauer</string>
+    <string name="pref_camera_focustime_summary">Fokussierdauer festlegen</string>
 
     <!-- Settings screen, Timer mode entries -->
-    <string name="pref_camera_focustime_entry_5">5s</string>
-    <string name="pref_camera_focustime_entry_10">10s</string>
-    <string name="pref_camera_focustime_entry_15">15s</string>
-    <string name="pref_camera_focustime_entry_20">20s</string>
-    <string name="pref_camera_focustime_entry_30">30s</string>
+    <string name="pref_camera_focustime_entry_5">5 Sekunden</string>
+    <string name="pref_camera_focustime_entry_10">10 Sekunden</string>
+    <string name="pref_camera_focustime_entry_15">15 Sekunden</string>
+    <string name="pref_camera_focustime_entry_20">20 Sekunden</string>
+    <string name="pref_camera_focustime_entry_30">30 Sekunden</string>
     <string name="pref_camera_focustime_entry_infinite">Unendlich</string>
 </resources>
