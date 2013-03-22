@@ -44,9 +44,14 @@
     <string name="pref_camera_settings_category" msgid="2576236450859613120">"Настройки камеры"</string>
     <string name="pref_camcorder_settings_category" msgid="460313486231965141">"Настройки видеокамеры"</string>
     <string name="pref_camera_picturesize_title" msgid="4333724936665883006">"Размер фото"</string>
+    <string name="pref_camera_picturesize_entry_13mp">13 Мпикс.</string>
+    <string name="pref_camera_picturesize_entry_9mp">9 Мпикс.</string>
     <string name="pref_camera_picturesize_entry_8mp" msgid="259953780932849079">"8 Мпикс."</string>
+    <string name="pref_camera_picturesize_entry_6_4mp">6.4 Мпикс.</string>
     <string name="pref_camera_picturesize_entry_5mp" msgid="2882928212030661159">"5 Мпикс."</string>
     <string name="pref_camera_picturesize_entry_3mp" msgid="741415860337400696">"3 Мпикс."</string>
+    <string name="pref_camera_picturesize_entry_2_5mp">2.5 Мпикс.</string>
+    <string name="pref_camera_picturesize_entry_2_1mp">2.1 Мпикс.</string>
     <string name="pref_camera_picturesize_entry_2mp" msgid="1753709802245460393">"2 Мпикс."</string>
     <string name="pref_camera_picturesize_entry_1_3mp" msgid="829109608140747258">"1,3 Мпикс."</string>
     <string name="pref_camera_picturesize_entry_1mp" msgid="1669725616780375066">"1 Мпикс."</string>
@@ -55,6 +60,7 @@
     <string name="pref_camera_focusmode_title" msgid="2877248921829329127">"Режим фокусировки"</string>
     <string name="pref_camera_focusmode_entry_auto" msgid="7374820710300362457">"Авто"</string>
     <string name="pref_camera_focusmode_entry_continuouspicture">Бесконечный фокус</string>
+    <string name="pref_camera_focusmode_entry_continuousvideo">Непрерывная фокусировка в видео</string>
     <string name="pref_camera_focusmode_entry_extended">Расширенный</string>
     <string name="pref_camera_focusmode_entry_facedetect">Определение лиц</string>
     <string name="pref_camera_focusmode_entry_facepriority">Фокус на лица</string>
@@ -62,6 +68,7 @@
     <string name="pref_camera_focusmode_entry_infinity" msgid="3413922419264967552">"Бесконечность"</string>
     <string name="pref_camera_focusmode_entry_macro" msgid="4424489110551866161">"Макро"</string>
     <string name="pref_camera_focusmode_entry_portrait">Портрет</string>
+    <string name="pref_camera_focusmode_entry_hyperfocal">Гиперфокальная</string>
     <string name="pref_camera_flashmode_title" msgid="2287362477238791017">"Режим вспышки"</string>
     <string name="pref_camera_flashmode_entry_auto" msgid="7288383434237457709">"Авто"</string>
     <string name="pref_camera_flashmode_entry_on" msgid="5330043918845197616">"Вкл."</string>
@@ -99,11 +106,18 @@
     <string name="pref_camera_scenemode_entry_steadyphoto">Стабильный снимок</string>
     <string name="pref_camera_scenemode_entry_theatre">Театр</string>
     <string name="pref_camera_scenemode_entry_backlight">Подсветка</string>
+    <string name="pref_camera_scenemode_entry_backlightportrait">Портрет с контровым светом</string>
     <string name="pref_camera_scenemode_entry_document">Документ</string>
     <string name="pref_camera_scenemode_entry_barcode">Штрих-код</string>
     <string name="pref_camera_scenemode_entry_text">Текст</string>
+    <string name="pref_camera_scenemode_entry_beauty">Великолепие</string>
+    <string name="pref_camera_scenemode_entry_flowers">Цветы</string>
+    <string name="pref_camera_scenemode_entry_whiteboard">Доска</string>
+    <string name="pref_camera_scenemode_entry_backgroundblur">Размытие фона</string>
     <string name="not_selectable_in_scene_mode" msgid="2970291701448555126">"Недоступно в режиме съемки"</string>
     <string name="pref_exposure_title" msgid="1229093066434614811">"Экспозиция"</string>
+    <!-- Default HDR entry value -->
+    <string name="pref_camera_hdr_default">выкл</string>
     <skip />
     <string name="dialog_ok" msgid="6263301364153382152">"ОК"</string>
     <string name="spaceIsLow_content" product="nosdcard" msgid="4401325203349203177">"Место на USB-накопителе заканчивается. Измените настройки качества или удалите ненужные изображения и другие файлы."</string>
@@ -150,6 +164,8 @@
     <string name="accessibility_switch_to_video" msgid="4991396355234561505">"Режим \"Видео\""</string>
     <string name="accessibility_switch_to_panorama" msgid="604756878371875836">"Режим \"Панорама\""</string>
     <string name="accessibility_switch_to_new_panorama" msgid="8116783308051524188">"Создать панораму"</string>
+    <!-- The button to switch to the Gallery. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_switch_to_gallery">Перейти в галерею</string>
     <string name="accessibility_review_cancel" msgid="9070531914908644686">"Отмена"</string>
     <string name="accessibility_review_ok" msgid="7793302834271343168">"Готово"</string>
     <string name="accessibility_review_retake" msgid="659300290054705484">"Ещё раз"</string>
@@ -207,6 +223,11 @@
     <string name="remember_location_yes" msgid="862884269285964180">"Да"</string>
 
     <string name="pref_camera_power_shutter_title">Съёмка кнопкой питания</string>
+    <string name="pref_camera_power_shutter_default">выкл</string>
+
+    <!-- Settings screen, storage title -->
+    <string name="pref_camera_storage_title">Использовать внешнее хранилище</string>
+    <string name="pref_camera_storage_title_default">Нет</string>
 
     <!-- Settings screen, JPEG Quality -->
     <string name="pref_camera_jpeg_title">Качество JPEG</string>
