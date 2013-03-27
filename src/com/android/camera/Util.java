@@ -152,7 +152,6 @@ public class Util {
     // Software HDR based on manual shots with multiple exposure
     private static boolean sEnableSoftwareHDR;
     private static boolean sDoSoftwareHDRShot;
-    private static int sSoftwareHDRExposureSettleTime;
 
     private Util() {
     }
@@ -176,9 +175,8 @@ public class Util {
         sNoFaceDetectOnBackCamera = context.getResources().getBoolean(
                 R.bool.noFaceDetectOnBackCamera);
 
+        // Todo: uncomment once debugged
         sEnableSoftwareHDR = !context.getResources().getBoolean(R.bool.disableSoftwareHDR);
-        sSoftwareHDRExposureSettleTime = context.getResources().getInteger(
-                R.integer.softwareHDRExposureSettleTime);
         sDoSoftwareHDRShot = false;
     }
 
@@ -212,10 +210,6 @@ public class Util {
 
     public static boolean getDoSoftwareHDRShot() {
         return sDoSoftwareHDRShot;
-    }
-
-    public static int getSoftwareHDRExposureSettleTime() {
-        return sSoftwareHDRExposureSettleTime;
     }
 
     public static boolean noFaceDetectOnFrontCamera() {
