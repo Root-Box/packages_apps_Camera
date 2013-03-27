@@ -968,8 +968,7 @@ public class PhotoModule
             // i.e. If monkey/a user swipes to the gallery during picture taking,
             // don't show animation
             if (ApiHelper.HAS_SURFACE_TEXTURE && !mIsImageCaptureIntent
-                    && mActivity.mShowCameraAppView
-                    && !(mHDRShotInProgress && mBurstShotsDone < 3)) {
+                    && mActivity.mShowCameraAppView) {
                 // Finish capture animation
                 ((CameraScreenNail) mActivity.mCameraScreenNail).animateSlide();
             }
@@ -1692,7 +1691,6 @@ public class PhotoModule
                 mHDRShotInProgress = false;
                 mHDRRendering = true;
                 mSnapshotOnIdle = false;
-                mBurstShotsDone = 0;
                 Log.d(TAG, "Done shooting all exposures, computing HDR");
 
                 // We release controls
