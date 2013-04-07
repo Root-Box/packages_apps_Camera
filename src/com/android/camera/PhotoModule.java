@@ -62,6 +62,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.camera.CameraManager.CameraProxy;
@@ -119,6 +120,7 @@ public class PhotoModule
     private static final int START_PREVIEW_DONE = 10;
     private static final int OPEN_CAMERA_FAIL = 11;
     private static final int CAMERA_DISABLED = 12;
+    private static final int CAMERA_TIMER = 13;
 
     // The subset of parameters we need to update in setCameraParameters().
     private static final int UPDATE_PARAM_INITIALIZE = 1;
@@ -203,6 +205,10 @@ public class PhotoModule
     private ImageView mHdrIndicator;
     // A view group that contains all the small indicators.
     private View mOnScreenIndicators;
+
+    // Corner indicator for no-hands shot activities
+    private ImageView mNoHandsIndicator;
+    private TextView mTimerCountdown;
 
     // We use a thread in ImageSaver to do the work of saving images. This
     // reduces the shot-to-shot time.
@@ -307,7 +313,11 @@ public class PhotoModule
     private int mBurstShotsDone = 0;
     private boolean mBurstShotInProgress = false;
 
+    // Camera timer.
+    private boolean mTimerMode = false;
+
     private boolean mQuickCapture;
+    protected int mCaptureMode;
 
     CameraStartUpThread mCameraStartUpThread;
     ConditionVariable mStartPreviewPrerequisiteReady = new ConditionVariable();
@@ -443,6 +453,12 @@ public class PhotoModule
                             R.string.camera_disabled);
                     break;
                 }
+
+                case CAMERA_TIMER: {
+                    updateTimer(msg.arg1);
+                    break;
+                }
+
             }
         }
     }
@@ -584,6 +600,9 @@ public class PhotoModule
         mFocusManager.setPreviewSize(mPreviewFrameLayout.getWidth(),
                 mPreviewFrameLayout.getHeight());
         loadCameraPreferences();
+
+        mPhotoControl.restoreNoHandsShutter();
+
         initializeZoom();
         updateOnScreenIndicators();
         showTapToFocusToastIfNeeded();
@@ -815,6 +834,8 @@ public class PhotoModule
         mFlashIndicator = (ImageView) mOnScreenIndicators.findViewById(R.id.menu_flash_indicator);
         mSceneIndicator = (ImageView) mOnScreenIndicators.findViewById(R.id.menu_scenemode_indicator);
         mHdrIndicator = (ImageView) mOnScreenIndicators.findViewById(R.id.menu_hdr_indicator);
+        mNoHandsIndicator = (ImageView) mRootView.findViewById(R.id.indicator_nohandsshot);
+        mTimerCountdown = (TextView) mRootView.findViewById(R.id.timer_countdown);
     }
 
     @Override
@@ -897,11 +918,42 @@ public class PhotoModule
         }
     }
 
+    public void updateNoHandsIndicator() {
+        if (mNoHandsIndicator == null) {
+            return;
+        }
+
+        // Set capture mode.
+        String defaultTime = mActivity.getString(R.string.pref_camera_nohands_default);
+        String delayTime = mPreferences.getString(CameraSettings.KEY_NOHANDS_MODE, defaultTime);
+        if (delayTime.equals(mActivity.getString(R.string.pref_camera_nohands_voice))) {
+            mCaptureMode = -1;
+        } else {
+            mCaptureMode = Integer.valueOf(delayTime);
+        }
+        if (mCaptureMode < 0) {
+            if (mPreferences.getBoolean(CameraSettings.KEY_VOICE_FIRST_USE_HINT_SHOWN, true)) {
+                showVoiceHintToast();
+            }
+            mNoHandsIndicator.setImageResource(R.drawable.ic_switch_voiceshutter);
+            mNoHandsIndicator.setVisibility(View.VISIBLE);
+        } else if (mCaptureMode > 0) {
+            mNoHandsIndicator.setImageResource(R.drawable.ic_indicator_timer);
+            mNoHandsIndicator.setVisibility(View.VISIBLE);
+            mTimerCountdown.setVisibility(View.VISIBLE);
+        } else {
+            mNoHandsIndicator.setVisibility(View.GONE);
+            mTimerCountdown.setVisibility(View.GONE);
+            mNoHandsIndicator.setImageBitmap(null);
+        }
+    }
+
     private void updateOnScreenIndicators() {
         updateSceneOnScreenIndicator(mParameters.getSceneMode());
         updateExposureOnScreenIndicator(CameraSettings.readExposure(mPreferences));
         updateFlashOnScreenIndicator(mParameters.getFlashMode());
         updateHdrOnScreenIndicator(mParameters.getSceneMode());
+        updateNoHandsIndicator();
     }
 
     private void updateCustomSettings() {
@@ -936,6 +988,8 @@ public class PhotoModule
             mShutterCallbackTime = System.currentTimeMillis();
             mShutterLag = mShutterCallbackTime - mCaptureStartTime;
             Log.v(TAG, "mShutterLag = " + mShutterLag + "ms");
+
+            mPhotoControl.resetNoHandsShutter(false);
         }
     }
 
@@ -1652,7 +1706,7 @@ public class PhotoModule
 
     @Override
     public void onShutterButtonFocus(boolean pressed) {
-        if (mPaused || collapseCameraControls()
+        if ((mTimerMode && pressed) || mPaused || collapseCameraControls()
                 || (mCameraState == SNAPSHOT_IN_PROGRESS)
                 || (mCameraState == PREVIEW_STOPPED)) return;
 
@@ -1670,9 +1724,41 @@ public class PhotoModule
         }
     }
 
+    private void updateTimer(int timerSeconds) {
+        mTimerCountdown.setText(String.format("%d:%02d", timerSeconds / 60, timerSeconds % 60));
+        timerSeconds--;
+        if (timerSeconds < 0) {
+            capture();
+            onShutterButtonClick();
+            // Taking the shot, clear the countdown
+            mTimerCountdown.setText("");
+        } else {
+            if (timerSeconds < 2) {
+                mFocusManager.onShutterDown();
+                mFocusManager.onShutterUp();
+            }
+            Message timerMsg = Message.obtain();
+            timerMsg.arg1 = timerSeconds;
+            timerMsg.what = CAMERA_TIMER;
+            mHandler.sendMessageDelayed(timerMsg, 1000);
+        }
+    }
+
     @Override
     public void onShutterButtonClick() {
         int nbBurstShots = Integer.valueOf(mPreferences.getString(CameraSettings.KEY_BURST_MODE, "1"));
+
+        if (!mTimerMode) {
+            if (mCaptureMode > 0) {
+                mTimerMode = true;
+                updateTimer(mCaptureMode);
+                return;
+            }
+        } else if (mTimerMode) {
+            mTimerMode = false;
+            mHandler.removeMessages(CAMERA_TIMER);
+            return;
+        }
 
         if (mPaused || collapseCameraControls()
                 || (mCameraState == SWITCHING_CAMERA)
@@ -1751,7 +1837,6 @@ public class PhotoModule
             initializeSecondTime();
         }
         keepScreenOnAwhile();
-
         // Dismiss open menu if exists.
         PopupManager.getInstance(mActivity).notifyShowPopup(null);
     }
@@ -1778,6 +1863,9 @@ public class PhotoModule
     public void onPauseAfterSuper() {
         // Wait the camera start up thread to finish.
         waitCameraStartUpThread();
+
+        // Disable no-hands mode, and kill any pending voice listeners
+        mPhotoControl.resetNoHandsShutter(true);
 
         // When camera is started from secure lock screen for the first time
         // after screen on, the activity gets onCreate->onResume->onPause->onResume.
@@ -2725,6 +2813,15 @@ public class PhotoModule
         // Clear the preference.
         Editor editor = mPreferences.edit();
         editor.putBoolean(CameraSettings.KEY_CAMERA_FIRST_USE_HINT_SHOWN, false);
+        editor.apply();
+    }
+
+    private void showVoiceHintToast() {
+        // TODO: Use a toast?
+        new RotateTextToast(mActivity, R.string.voice_hint, 0).show();
+        // Clear the preference.
+        Editor editor = mPreferences.edit();
+        editor.putBoolean(CameraSettings.KEY_VOICE_FIRST_USE_HINT_SHOWN, false);
         editor.apply();
     }
 
