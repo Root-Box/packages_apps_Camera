@@ -102,7 +102,7 @@
     <string name="pref_camera_scenemode_entry_backgroundblur">Desenfocar fondo</string>
     <string name="not_selectable_in_scene_mode">No se puede seleccionar en el modo de escena.</string>
     <string name="pref_exposure_title">Exposición</string>
-    <string name="pref_camera_hdr_default">@string/Desabilitado</string>
+    <string name="pref_camera_hdr_default">@string/setting_off_value</string>
     <string name="dialog_ok">Aceptar</string>
     <string name="spaceIsLow_content" product="nosdcard">No queda espacio en la tarjeta SD. Cambia la configuración de calidad o elimina algunas imágenes u otros archivos.</string>
     <string name="spaceIsLow_content" product="default">No queda espacio en la tarjeta SD. Cambia la configuración de calidad o elimina algunas imágenes u otros archivos.</string>
