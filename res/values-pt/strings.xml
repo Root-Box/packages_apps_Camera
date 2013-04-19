@@ -141,9 +141,9 @@
     <string name="accessibility_second_level_indicators">Mais controles de configuração</string>
     <string name="accessibility_back_to_first_level">Fechar controles de configuração</string>
     <string name="accessibility_zoom_control">Controle de zoom</string>
-    <string name="accessibility_decrement">Diminuição de %1$ s</string>
-    <string name="accessibility_increment">Aumento de %1$ s</string>
-    <string name="accessibility_switch">interruptor do $ %1</string>
+    <string name="accessibility_decrement">Diminuição de %1$s</string>
+    <string name="accessibility_increment">Aumento de %1$s</string>
+    <string name="accessibility_switch">interruptor do %1$s</string>
     <string name="accessibility_switch_to_camera">Mudar a foto</string>
     <string name="accessibility_switch_to_video">Mudar para o vídeo</string>
     <string name="accessibility_switch_to_panorama">Alterne para o panorama</string>
