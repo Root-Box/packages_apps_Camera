@@ -149,6 +149,9 @@ public class Util {
     private static boolean sNoFaceDetectOnFrontCamera;
     private static boolean sNoFaceDetectOnBackCamera;
 
+    // Do not change the focus mode when TTF is used
+    private static boolean sNoFocusModeChangeForTouch;
+
     private Util() {
     }
 
@@ -170,6 +173,8 @@ public class Util {
                 R.bool.noFaceDetectOnFrontCamera);
         sNoFaceDetectOnBackCamera = context.getResources().getBoolean(
                 R.bool.noFaceDetectOnBackCamera);
+        sNoFocusModeChangeForTouch = context.getResources().getBoolean(
+                R.bool.useContinuosFocusForTouch);
     }
 
     public static int dpToPixel(int dp) {
@@ -195,8 +200,13 @@ public class Util {
     public static boolean noFaceDetectOnFrontCamera() {
         return sNoFaceDetectOnFrontCamera;
     }
+
     public static boolean noFaceDetectOnBackCamera() {
         return sNoFaceDetectOnBackCamera;
+    }
+
+    public static boolean noFocusModeChangeForTouch() {
+        return sNoFocusModeChangeForTouch;
     }
 
     // Rotates the bitmap by the specified degree.
