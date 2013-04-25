@@ -86,6 +86,7 @@ public class VideoController extends PieController
                 CameraSettings.KEY_RECORD_LOCATION,
                 CameraSettings.KEY_STORAGE,
                 CameraSettings.KEY_POWER_SHUTTER,
+                CameraSettings.KEY_SMART_CAPTURE,
                 CameraSettings.KEY_VIDEOCAMERA_COLOR_EFFECT,
                 CameraSettings.KEY_VIDEOCAMERA_JPEG};
 

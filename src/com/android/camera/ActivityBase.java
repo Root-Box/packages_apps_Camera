@@ -24,6 +24,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.hardware.Camera.Parameters;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -84,6 +85,8 @@ public abstract class ActivityBase extends AbstractGalleryActivity
 
     // Keep track of powershutter state
     public static boolean mPowerShutter = false;
+
+    public static boolean mSmartCapture = false;
 
     // Keep track of External Storage
     public static boolean mStorageExternal;
@@ -232,6 +235,17 @@ public abstract class ActivityBase extends AbstractGalleryActivity
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.PREVENT_POWER_KEY);
         }
+    }
+
+    protected void initSmartCapture(ComboPreferences prefs) {
+        prefs.setLocalId(getApplicationContext(), 0);
+        String val = prefs.getString(CameraSettings.KEY_SMART_CAPTURE,
+                getResources().getString(R.string.capital_off));
+        mSmartCapture = val.equals(CameraSettings.VALUE_ON);
+    }
+
+    protected SensorManager getSensorManager() {
+        return (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
     }
 
     // Initialize storage preferences
