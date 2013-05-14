@@ -260,6 +260,7 @@ public class PhotoModule
     private boolean mSnapshotOnIdle = false;
 
     private SensorManager mSensorManager;
+    private boolean mSensorIsRegistered = false;
 
     private ContentResolver mContentResolver;
 
@@ -480,10 +481,11 @@ public class PhotoModule
 
         mActivity.getLayoutInflater().inflate(R.layout.photo_module, (ViewGroup) mRootView);
 
+        updateCustomSettings(false);
+
         // Surface texture is from camera screen nail and startPreview needs it.
         // This must be done before startPreview.
         mIsImageCaptureIntent = isImageCaptureIntent();
-        updateCustomSettings();
         if (reuseNail) {
             mActivity.reuseCameraScreenNail(!mIsImageCaptureIntent);
         } else {
@@ -956,11 +958,11 @@ public class PhotoModule
         updateNoHandsIndicator();
     }
 
-    private void updateCustomSettings() {
+    private void updateCustomSettings(boolean forceStopSmartCapture) {
         mActivity.initPowerShutter(mPreferences);
         mActivity.initStoragePrefs(mPreferences);
         mActivity.initSmartCapture(mPreferences);
-        if (mActivity.mSmartCapture) {
+        if (mActivity.mSmartCapture && !forceStopSmartCapture) {
             startSmartCapture();
         } else {
             stopSmartCapture();
@@ -968,16 +970,21 @@ public class PhotoModule
     }
 
     private void startSmartCapture() {
-        mSensorManager = mActivity.getSensorManager();
-        mSensorManager.registerListener(this,
-                mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                SensorManager.SENSOR_DELAY_UI);
+        if (!mSensorIsRegistered) {
+            mSensorIsRegistered = true;
+            mSensorManager = mActivity.getSensorManager();
+            mSensorManager.registerListener(this,
+                    mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+                    SensorManager.SENSOR_DELAY_UI);
+        }
     }
 
     private void stopSmartCapture() {
-        if (mSensorManager != null) {
+        if (mSensorManager != null && mSensorIsRegistered) {
+            mSensorIsRegistered = false;
             mSensorManager.unregisterListener(this,
                     mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY));
+            mSensorManager = null;
         }
     }
 
@@ -1807,7 +1814,7 @@ public class PhotoModule
     @Override
     public void updateCameraAppView() {
         // Setup Power shutter and smart capture
-        updateCustomSettings();
+        updateCustomSettings(false);
     }
 
     @Override
@@ -1893,7 +1900,7 @@ public class PhotoModule
         resetScreenOn();
 
         // Load the Custom Settings
-        updateCustomSettings();
+        updateCustomSettings(true);
 
         // Clear UI.
         collapseCameraControls();
@@ -2036,6 +2043,7 @@ public class PhotoModule
         initializeFocusManager();
         initializeMiscControls();
         loadCameraPreferences();
+        updateCustomSettings(false);
 
         // from initializeFirstTime()
         mShutterButton = mActivity.getShutterButton();
@@ -2681,7 +2689,7 @@ public class PhotoModule
         setCameraParametersWhenIdle(UPDATE_PARAM_PREFERENCE);
         setPreviewFrameLayoutAspectRatio();
         updateOnScreenIndicators();
-        updateCustomSettings();
+        updateCustomSettings(false);
 
         if (ActivityBase.mStorageToggled) {
             mActivity.recreate();
