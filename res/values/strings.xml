@@ -611,4 +611,7 @@ CHAR LIMIT = NONE] -->
     <string name="pref_nohands_persistent_title">Persistent handsfree</string>
     <string name="pref_nohands_persistent_default">@string/setting_off_value</string>
 
+    <!-- True View -->
+    <string name="pref_true_view_title">True View</string>
+
 </resources>

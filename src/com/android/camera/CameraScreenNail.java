@@ -76,7 +76,7 @@ public class CameraScreenNail extends SurfaceTextureScreenNail {
     private int mUncroppedRenderHeight;
     private float mScaleX = 1f, mScaleY = 1f;
     private boolean mFullScreen;
-    private boolean mEnableAspectRatioClamping = false;
+    public  static boolean mEnableAspectRatioClamping = false;
     private float mAlpha = 1f;
     private Runnable mOnFrameDrawnListener;
 
@@ -164,7 +164,7 @@ public class CameraScreenNail extends SurfaceTextureScreenNail {
         updateRenderSize();
     }
 
-    private void updateRenderSize() {
+    public void updateRenderSize() {
         if (!mEnableAspectRatioClamping) {
             mScaleX = mScaleY = 1f;
             mUncroppedRenderWidth = getTextureWidth();

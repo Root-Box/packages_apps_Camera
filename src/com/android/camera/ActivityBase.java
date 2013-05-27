@@ -244,6 +244,13 @@ public abstract class ActivityBase extends AbstractGalleryActivity
         mSmartCapture = val.equals(CameraSettings.VALUE_ON);
     }
 
+    protected void initTrueView(ComboPreferences prefs) {
+        prefs.setLocalId(getApplicationContext(), 0);
+        String val = prefs.getString(CameraSettings.KEY_TRUE_VIEW,
+                getResources().getString(R.string.capital_off));
+        CameraScreenNail.mEnableAspectRatioClamping = val.equals(CameraSettings.VALUE_OFF);
+    }
+
     protected SensorManager getSensorManager() {
         return (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
     }
@@ -408,6 +415,11 @@ public abstract class ActivityBase extends AbstractGalleryActivity
     protected void gotoGallery() {
         // Move the next picture with capture animation. "1" means next.
         mAppBridge.switchWithCaptureAnimation(1);
+    }
+
+    protected void recreateScreenNail() {
+        ((CameraScreenNail) mCameraScreenNail).updateRenderSize();
+        notifyScreenNailChanged();
     }
 
     // Call this after setContentView.

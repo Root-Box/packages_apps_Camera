@@ -66,6 +66,12 @@
             camera:entries="@array/pref_switch_entries"
             camera:entryValues="@array/pref_switch_entryvalues" />
     <ListPreference
+            camera:key="pref_true_view"
+            camera:defaultValue="@string/capital_off"
+            camera:title="@string/pref_true_view_title"
+            camera:entries="@array/pref_switch_entries"
+            camera:entryValues="@array/pref_switch_entryvalues" />
+    <ListPreference
             camera:key="pref_camera_storage_key"
             camera:title="@string/pref_camera_storage_title"
             camera:defaultValue="@string/pref_camera_storage_title_default"
