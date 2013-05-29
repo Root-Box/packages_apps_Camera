@@ -2112,6 +2112,7 @@ public class VideoModule implements CameraModule,
         if (oldWidth != width || oldHeight != height) {
             screenNail.setSize(width, height);
             mActivity.initTrueView(mPreferences);
+            mActivity.notifyScreenNailChanged();
         }
 
         if (screenNail.getSurfaceTexture() == null) {
