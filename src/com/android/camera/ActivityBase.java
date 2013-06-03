@@ -240,14 +240,14 @@ public abstract class ActivityBase extends AbstractGalleryActivity
     protected void initSmartCapture(ComboPreferences prefs) {
         prefs.setLocalId(getApplicationContext(), 0);
         String val = prefs.getString(CameraSettings.KEY_SMART_CAPTURE,
-                getResources().getString(R.string.capital_off));
+                getResources().getString(R.string.setting_off_value));
         mSmartCapture = val.equals(CameraSettings.VALUE_ON);
     }
 
     protected void initTrueView(ComboPreferences prefs) {
         prefs.setLocalId(getApplicationContext(), 0);
         String val = prefs.getString(CameraSettings.KEY_TRUE_VIEW,
-                getResources().getString(R.string.capital_off));
+                getResources().getString(R.string.setting_off_value));
         CameraScreenNail.mEnableAspectRatioClamping = val.equals(CameraSettings.VALUE_OFF);
     }
 
