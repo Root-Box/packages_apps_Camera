@@ -226,7 +226,6 @@ public abstract class ActivityBase extends AbstractGalleryActivity
     }
 
     protected void initPowerShutter(ComboPreferences prefs) {
-        prefs.setLocalId(getApplicationContext(), 0);
         String val = prefs.getString(CameraSettings.KEY_POWER_SHUTTER,
                 getResources().getString(R.string.pref_camera_power_shutter_default));
         mPowerShutter = val.equals(CameraSettings.VALUE_ON);
@@ -238,16 +237,14 @@ public abstract class ActivityBase extends AbstractGalleryActivity
     }
 
     protected void initSmartCapture(ComboPreferences prefs) {
-        prefs.setLocalId(getApplicationContext(), 0);
         String val = prefs.getString(CameraSettings.KEY_SMART_CAPTURE,
-                getResources().getString(R.string.capital_off));
+                getResources().getString(R.string.setting_off_value));
         mSmartCapture = val.equals(CameraSettings.VALUE_ON);
     }
 
     protected void initTrueView(ComboPreferences prefs) {
-        prefs.setLocalId(getApplicationContext(), 0);
         String val = prefs.getString(CameraSettings.KEY_TRUE_VIEW,
-                getResources().getString(R.string.capital_off));
+                getResources().getString(R.string.setting_off_value));
         CameraScreenNail.mEnableAspectRatioClamping = val.equals(CameraSettings.VALUE_OFF);
     }
 
@@ -257,7 +254,6 @@ public abstract class ActivityBase extends AbstractGalleryActivity
 
     // Initialize storage preferences
     protected void initStoragePrefs(ComboPreferences prefs) {
-        prefs.setLocalId(getApplicationContext(), 0);
         String val = prefs.getString(CameraSettings.KEY_STORAGE,
                 getResources().getString(R.string.pref_camera_storage_title_default));
         mStorageToggled = ( mStorageExternal == val.equals(CameraSettings.VALUE_ON)) ? false : true;
