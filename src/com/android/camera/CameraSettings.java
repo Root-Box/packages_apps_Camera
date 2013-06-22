@@ -77,6 +77,7 @@ public class CameraSettings {
     public static final String KEY_BURST_MODE = "pref_camera_burst_key";
     public static final String KEY_NOHANDS_MODE = "pref_nohands_shutter_key";
     public static final String KEY_PERSISTENT_NOHANDS = "pref_nohands_persistent_key";
+    public static final String KEY_VIDEO_HDR = "pref_video_hdr_key";
 
     public static final String EXPOSURE_DEFAULT_VALUE = "0";
     public static final String VALUE_ON = "on";
@@ -189,6 +190,7 @@ public class CameraSettings {
         ListPreference isoMode = group.findPreference(KEY_ISO_MODE);
         ListPreference jpegQuality = group.findPreference(KEY_JPEG);
         ListPreference colorEffect = group.findPreference(KEY_COLOR_EFFECT);
+        ListPreference videoHdr = group.findPreference(KEY_VIDEO_HDR);
 
         // Since the screen could be loaded from different resources, we need
         // to check if the preference is available here
@@ -259,6 +261,10 @@ public class CameraSettings {
         if (colorEffect != null) {
             filterUnsupportedOptions(group,
                     colorEffect, mParameters.getSupportedColorEffects());
+        }
+        if (videoHdr != null &&
+            !Util.isVideoHdrSupported(mParameters)) {
+            removePreference(group, videoHdr.getKey());
         }
     }
 

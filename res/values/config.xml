@@ -48,4 +48,5 @@
     <bool name="useContinuosFocusForTouch">false</bool>
     <!-- Magic for enabling ZSL on Samsung cameras -->
     <bool name="sendMagicSamsungZSLCommand">false</bool>
+    <string name="videoHdrParam">video-hdr</string>
 </resources>
