@@ -167,6 +167,7 @@ public class PhotoModule
     private boolean mAeLockSupported;
     private boolean mAwbLockSupported;
     private boolean mContinousFocusSupported;
+    private boolean mHwFocusCameraKey;
 
     // The degrees of the device rotated clockwise from its natural orientation.
     private int mOrientation = OrientationEventListener.ORIENTATION_UNKNOWN;
@@ -1751,6 +1752,9 @@ public class PhotoModule
                 mActivity.hideSwitcher();
                 mActivity.setSwipingEnabled(false);
             }
+            if (mHwFocusCameraKey) {
+                mFocusManager.onShutterUp();
+            }
             mFocusManager.onShutterDown();
         } else {
             mFocusManager.onShutterUp();
@@ -2184,6 +2188,7 @@ public class PhotoModule
         switch (keyCode) {
             case KeyEvent.KEYCODE_FOCUS:
                 if (mFirstTimeInitialized && event.getRepeatCount() == 0) {
+                    mHwFocusCameraKey = true;
                     onShutterButtonFocus(true);
                 }
                 return true;
@@ -2239,9 +2244,7 @@ public class PhotoModule
         }
         switch (keyCode) {
             case KeyEvent.KEYCODE_FOCUS:
-                if (mFirstTimeInitialized) {
-                    onShutterButtonFocus(false);
-                }
+                mHwFocusCameraKey = false;
                 return true;
             case KeyEvent.KEYCODE_POWER:
                 if (ActivityBase.mPowerShutter) {
